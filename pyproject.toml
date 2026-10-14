@@ -1,0 +1,26 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# The framework packages (api, assertions, config, data, models) are imported from the project root.
+pythonpath = ["."]
+addopts = "-ra --strict-markers --html=reports/report.html --self-contained-html"
+# A known-bug test that unexpectedly passes fails the run, so fixed bugs are never missed.
+xfail_strict = true
+markers = [
+    "smoke: critical happy-path checks, run on every change",
+    "full: complete API regression suite (added to every test automatically)",
+    "negative: invalid input and error handling",
+    "known_bug(reason): test documents a real API defect, see FINDINGS.md",
+    "users: /users endpoints",
+    "posts: /posts endpoints",
+    "comments: /comments endpoints",
+]
+log_file = "reports/test-run.log"
+log_file_level = "DEBUG"
+log_file_format = "%(asctime)s %(levelname)-5s %(name)s: %(message)s"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "PT", "SIM"]
