@@ -44,7 +44,9 @@ def parse_as(response: requests.Response, model: type[Model]) -> Model:
 def parse_list_as(response: requests.Response, model: type[Model]) -> list[Model]:
     """Same as parse_as, for endpoints that return a JSON array."""
     try:
-        return [model.model_validate(item) for item in response.json()]
+        data = response.json()
+        assert isinstance(data, list), f"Expected a JSON list, got {type(data).__name__}" + _context(response)
+        return [model.model_validate(item) for item in data]
     except ValueError as error:
         raise AssertionError(f"Response does not match list[{model.__name__}]:\n{error}" + _context(response)) from None
 

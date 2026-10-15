@@ -26,7 +26,8 @@ def pytest_collection_modifyitems(items):
         item.add_marker(pytest.mark.full)
         if bug := item.get_closest_marker("known_bug"):
             reason = bug.args[0] if bug.args else "Known API defect, see FINDINGS.md"
-            item.add_marker(pytest.mark.xfail(reason=reason))
+            # Only a failed check counts as the known bug. A timeout or connection error is a real failure.
+            item.add_marker(pytest.mark.xfail(reason=reason, raises=AssertionError))
 
 
 def pytest_runtest_logstart(nodeid, location):

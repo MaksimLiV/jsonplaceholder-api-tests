@@ -76,7 +76,7 @@ When a check fails, the message includes a curl command, so the request is easy 
 
 ```
 AssertionError: Expected status 400, got 201
-  Reproduce: curl -X POST -H 'User-Agent: python-requests/2.34.2' -H 'Accept-Encoding: gzip, deflate' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'Content-Length: 2' -H 'Content-Type: application/json' -d '{}' https://jsonplaceholder.typicode.com/posts
+  Reproduce: curl -X POST -H 'User-Agent: python-requests/2.34.2' -H 'Accept: application/json' -H 'Connection: keep-alive' -H 'Content-Type: application/json' -d '{}' https://jsonplaceholder.typicode.com/posts
   Response 201: {
   "id": 101
 }

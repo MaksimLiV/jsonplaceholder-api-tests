@@ -26,6 +26,7 @@ def test_nested_and_filtered_comments_match(posts_api, comments_api, post_id):
 def test_every_post_belongs_to_existing_user(posts_api, users_api):
     user_ids = {user.id for user in parse_list_as(users_api.get_all(), User)}
     posts = parse_list_as(posts_api.get_all(), Post)
+    assert posts, "No posts returned"
 
     orphans = [post.id for post in posts if post.user_id not in user_ids]
     assert not orphans, f"Posts with unknown userId: {orphans}"
